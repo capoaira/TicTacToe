@@ -1,0 +1,6 @@
+<drawable-list id="field" background="Gfx.COLOR_BLACK" x="center" y="center" width="80%" height="80%">
+	<shape type="rectangle" x="33%" y="0" height="100%" width="3" color="Gfx.COLOR_LT_GRAY" />
+	<shape type="rectangle" x="66%" y="0" height="100%" width="3" color="Gfx.COLOR_LT_GRAY" />
+	<shape type="rectangle" x="0" y="33%" height="3" width="100%" color="Gfx.COLOR_LT_GRAY" />
+	<shape type="rectangle" x="0" y="66%" height="3" width="100%" color="Gfx.COLOR_LT_GRAY" />
+</drawable-list>

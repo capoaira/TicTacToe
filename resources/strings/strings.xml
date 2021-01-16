@@ -1,0 +1,9 @@
+<strings>
+    <string id="AppName">Tic Tac Toe 1vs1</string>
+    
+    <string id="btn_startGame">Start Game</string>
+    <string id="btn_exit">Exit</string>
+    
+    <string id="won">Player $1$ won</string>
+    <string id="tie">Tie</string>
+</strings>

@@ -1,0 +1,3 @@
+<layout id="GameLayout">
+	<drawable id="field" />
+</layout>
