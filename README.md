@@ -8,5 +8,5 @@ Das Spiel ist momentan nur auf runden Geräten ohne Touch verfügbar.
 
 ---
 # Changelog
-#####V 0.1.0
+##### V 0.1.0
  - Release Version
