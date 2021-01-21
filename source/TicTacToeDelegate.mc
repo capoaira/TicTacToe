@@ -1,13 +1,12 @@
-using Toybox.WatchUi;
-using Toybox.System;
+using Toybox.WatchUi as Ui;
 
-class TicTacToeDelegate extends WatchUi.BehaviorDelegate {
-    function initialize() {
-        BehaviorDelegate.initialize();
-    }
+class TicTacToeDelegate extends Ui.BehaviorDelegate {
+	function initialize() {
+		BehaviorDelegate.initialize();
+	}
 
-    function onSelect() {
-        WatchUi.pushView(new GameView(), new GameDelegate(), WatchUi.SLIDE_UP);
-    }
+	function onSelect() {
+		Ui.pushView(new GameView(), new GameDelegate(), Ui.SLIDE_UP);
+	}
 
 }

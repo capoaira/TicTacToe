@@ -1,114 +1,91 @@
-using Toybox.WatchUi;
-using Toybox.Graphics;
 using Toybox.Application as App;
+using Toybox.WatchUi as Ui;
 
-class GameDelegate extends WatchUi.BehaviorDelegate {
-    var Storage = App.Storage;
-	var x = 0;
-	var y = 0;
+class GameDelegate extends Ui.BehaviorDelegate {
+	var Storage = App.Storage;
 	var player = 1;
-	var feld = [
-				[
-					[false, 0], [false, 0], [false, 0]
-				],
-				[
-					[false, 0], [false, 0], [false, 0]
-				],
-				[
-					[false, 0], [false, 0], [false, 0]
-				]
-			];
+	var playerPos = 0;
+	var board = [0,0,0,0,0,0,0,0,0];
 
-    function initialize() {
-        BehaviorDelegate.initialize();
-    	Storage.setValue("marker", [x,y,player]);
-    	Storage.setValue("feld", feld);
-    	Storage.setValue("gameEnd", [false, 0]);
-    	Storage.setValue("initialize", true);
-    	WatchUi.requestUpdate();
-    }
+	function initialize() {
+		BehaviorDelegate.initialize();
+		Storage.setValue("marker", [playerPos, player]);
+		Storage.setValue("board", board);
+		Storage.setValue("gameEnd", -1);
+		Storage.setValue("initialize", true);
+		Ui.requestUpdate();
+	}
 
-    function onSelect() {
-    	feld[x][y][0] = true;
-    	feld[x][y][1] = player;
-    	Storage.setValue("feld", feld);
-    	Storage.setValue("gameEnd", isGameEnd());
-    	player = player==1 ? 2 : 1;
-		x = 0;
-		y = 0;
-		if (isBesetzt() && !isGameEnd()[0]) {
+	function onSelect() {
+		board[playerPos] = player;
+		Storage.setValue("board", board);
+		Storage.setValue("gameEnd", isGameEnd());
+		player = player==1 ? 2 : 1;
+		playerPos = 0;
+		if (isBesetzt() && isGameEnd() == -1) {
 			onNextPage();
 		} else {
-    		Storage.setValue("marker", [x,y,player]);
+			Storage.setValue("marker", [playerPos,player]);
 		}
-    	WatchUi.requestUpdate();
-    }
+		Ui.requestUpdate();
+	}
 
-    function onPreviousPage() {
-   		x = x==0 ? 2 : x-1;
-   		y = x==2 ? y==0 ? 2 : y-1 : y;
-    	if (isBesetzt()) {
-    		onPreviousPage();
-    	} else {
-    		updateMarker();
-    	}
-    }
+	function onPreviousPage() {
+   		playerPos = playerPos==0 ? 8 : playerPos-1;
+		if (isBesetzt()) {
+			onPreviousPage();
+		} else {
+			updateMarker();
+		}
+	}
 
-    function onNextPage() {
-    	x = x==2 ? 0 : x+1;
-   		y = x==0 ? y==2 ? 0 : y+1 : y;
-    	if (isBesetzt()) {
-    		onNextPage();
-    	} else {
-    		updateMarker();
-    	}
-    }
-    
-    function isBesetzt() {
-    	return feld[x][y][0];
-    }
-    
-    function updateMarker() {
-    	Storage.setValue("marker", [x,y,player]);
-    	WatchUi.requestUpdate();
-    }
-    
-    function isGameEnd() {
-    	var isGameEnd = [false, 0];
-    	for (var p=1; p<3; p++) {
-    		System.println("p: "+p);
-    		// Horizontal
-	    	for (var x=0; x<3; x++) {
-	    		if (feld[x][0][1] == p && feld[x][1][1] == p && feld[x][2][1] == p) {
-	    			isGameEnd = [true, p];
-	    		}
-	    	}
-	    	// Vertical
-	    	for (var y=0; y<3; y++) {
-	    		if (feld[0][y][1] == p && feld[1][y][1] == p && feld[2][y][1] == p) {
-	    			isGameEnd = [true, p];
-	    		}
-	    	}
-	    	// Diagonal
-	    	if (feld[0][0][1] == p && feld[1][1][1] == p && feld[2][2][1] == p) {
-    			isGameEnd = [true, p];
-    		}
-	    	if (feld[0][2][1] == p && feld[1][1][1] == p && feld[2][0][1] == p) {
-    			isGameEnd = [true, p];
-    		}
-    	}
-    	// Unentschieden
-    	if (!isGameEnd[0]) {
-    		isGameEnd[0] = true;
-    		for (var x=0; x<3; x++) {
-			   for (var y=0; y<3; y++) {
-				    if (!feld[x][y][0]) {
-						isGameEnd = [false, 0];
-				    }
+	function onNextPage() {
+		playerPos = playerPos==8 ? 0 : playerPos+1;
+		if (isBesetzt()) {
+			onNextPage();
+		} else {
+			updateMarker();
+		}
+	}
+
+	function isBesetzt() {
+		return board[playerPos] != 0;
+	}
+
+	function updateMarker() {
+		Storage.setValue("marker", [playerPos,player]);
+		Ui.requestUpdate();
+	}
+
+	function isGameEnd() {
+		var isGameEnd = -1;
+		for (var p=1; p<3; p++) {
+			for (var i=0; i<3; i++) {
+				// Horizontal
+				if (board[i*3] == p && board[i*3+1] == p && board[i*3+2] == p) {
+					isGameEnd = p;
+				}
+				// Vertical
+				if (board[i] == p && board[i+3] == p && board[i+6] == p) {
+					isGameEnd = p;
 				}
 			}
-    	}
-    	System.println(isGameEnd);
-    	return isGameEnd;
-    }
+			// Diagonal
+			if (board[0] == p && board[4] == p && board[8] == p ||
+				board[2] == p && board[4] == p && board[6] == p) {
+				isGameEnd = p;
+			}
+		}
+		// Unentschieden
+		if (isGameEnd == -1) {
+			isGameEnd = 0;
+			for (var i=0; i<9; i++) {
+				if (board[i] == 0) {
+					isGameEnd = -1;
+				}
+			}
+		}
+		return isGameEnd;
+	}
+
 }
