@@ -8,5 +8,8 @@ Das Spiel ist momentan nur auf runden Geräten ohne Touch verfügbar.
 
 ---
 # Changelog
+##### V 0.1.1
+ - Remove compatibility for descent mk2i
+
 ##### V 0.1.0
  - Release Version
