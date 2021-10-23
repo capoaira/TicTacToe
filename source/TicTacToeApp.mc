@@ -8,7 +8,9 @@ class TicTacToeApp extends App.AppBase {
 
 	// onStart() is called on application start up
 	function onStart(state) {
-		Storage.setValue("initialize", false);
+		Storage.setValue("startGame", false);
+		Storage.setValue("mode", 0);
+		Storage.setValue("starter", 1);
 	}
 
 	// onStop() is called when your application is exiting

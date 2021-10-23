@@ -12,7 +12,7 @@ class GameDelegate extends Ui.BehaviorDelegate {
 		Storage.setValue("marker", [playerPos, player]);
 		Storage.setValue("board", board);
 		Storage.setValue("gameEnd", -1);
-		Storage.setValue("initialize", true);
+		Storage.setValue("startGame", true);
 		Ui.requestUpdate();
 	}
 

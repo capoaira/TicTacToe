@@ -21,7 +21,7 @@ class GameView extends Ui.View {
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);
 
-		if (Storage.getValue("initialize")) {
+		if (Storage.getValue("startGame")) {
 			// Radius and percent for x/y position
 	   		var r = percentInPx(8);
 	   		var xy = [30, 60, 90];
@@ -60,6 +60,9 @@ class GameView extends Ui.View {
 			} else {
 				dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_TRANSPARENT);
 				var text = Lang.format(Ui.loadResource(Rez.Strings.won), [Storage.getValue("gameEnd")]);
+				if (Storage.getValue("mode") != 0 && Storage.getValue("gameEnd") == 2) {
+					text = Ui.loadResource(Rez.Strings.garmin_won);
+				}
 				if (Storage.getValue("gameEnd") == 0) {
 					text = Ui.loadResource(Rez.Strings.tie);
 				}

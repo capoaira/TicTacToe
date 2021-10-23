@@ -1,9 +1,18 @@
 <strings>
-    <string id="AppName">Tic Tac Toe 1vs1</string>
+    <string id="AppName">Tic Tac Toe</string>
 
     <string id="btn_startGame">Start Game</string>
     <string id="btn_exit">Exit</string>
 
     <string id="won">Player $1$ won</string>
+    <string id="garmin_won">Garmin won</string>
     <string id="tie">Tie</string>
+
+    <string id="player_First">You First</string>
+    <string id="garmin_First">Garmin First</string>
+
+    <string id="mode_0">1 vs 1</string>
+    <string id="mode_1">Easy</string>
+    <string id="mode_2">Normal</string>
+    <string id="mode_3">Hard</string>
 </strings>

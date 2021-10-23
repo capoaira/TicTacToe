@@ -1,5 +1,5 @@
 <layout id="MainLayout">
-	<bitmap id="background" x="16" y="16" filename="../drawables/background.png" />
+	<!-- <bitmap id="background" x="16" y="16" filename="../drawables/background.png" />  -->
 	<label text="@Strings.btn_startGame" x="90%" y="25%" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_WHITE" />
 	<label text="@Strings.btn_exit" x="90%" y="70%" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_RIGHT" color="Gfx.COLOR_WHITE" />
 </layout>
